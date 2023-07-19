@@ -4,8 +4,6 @@ const { regex } = require('../constants/regex');
 const validateSignup = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(regex),
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
@@ -34,13 +32,6 @@ const validateCardId = celebrate({
 const validateUser = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-  }),
-});
-
-const validateUserAvatar = celebrate({
-  body: Joi.object().keys({
-    avatar: Joi.string().required().regex(regex),
   }),
 });
 
@@ -56,6 +47,5 @@ module.exports = {
   validateCard,
   validateCardId,
   validateUser,
-  validateUserAvatar,
   validateUserId,
 };

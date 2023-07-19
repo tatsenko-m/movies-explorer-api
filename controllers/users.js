@@ -94,43 +94,15 @@ const getCurrentUserInfo = (req, res, next) => {
 
 const updateUserInfo = (req, res, next) => {
   const userId = req.user._id;
-  const { name, about } = req.body;
+  const { name, email } = req.body;
 
-  if (!name && !about) {
+  if (!name && !email) {
     next(new BadRequestError('Переданы некорректные данные'));
   }
 
   return User.findByIdAndUpdate(
     userId,
-    { name, about },
-    { new: true, runValidators: true },
-  )
-    .then((updatedUser) => {
-      if (!updatedUser) {
-        return next(new NotFoundError('Пользователь не найден'));
-      }
-      return res.status(200).send(updatedUser);
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные'));
-      } else {
-        next(err);
-      }
-    });
-};
-
-const updateUserAvatar = (req, res, next) => {
-  const userId = req.user._id;
-  const { avatar } = req.body;
-
-  if (!avatar) {
-    next(new BadRequestError('Переданы некорректные данные'));
-  }
-
-  return User.findByIdAndUpdate(
-    userId,
-    { avatar },
+    { name, email },
     { new: true, runValidators: true },
   )
     .then((updatedUser) => {
@@ -155,5 +127,4 @@ module.exports = {
   login,
   getCurrentUserInfo,
   updateUserInfo,
-  updateUserAvatar,
 };
