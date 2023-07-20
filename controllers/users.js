@@ -8,31 +8,6 @@ const ConflictError = require('../errors/ConflictError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const getUsers = (req, res, next) => {
-  User.find({})
-    .then((users) => res.status(200).send(users))
-    .catch(next);
-};
-
-const getUserById = (req, res, next) => {
-  const { userId } = req.params;
-
-  return User.findById(userId)
-    .then((user) => {
-      if (!user) {
-        return next(new NotFoundError('Пользователь не найден'));
-      }
-      return res.status(200).send(user);
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Некорректный id'));
-      } else {
-        next(err);
-      }
-    });
-};
-
 const createUser = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
@@ -121,8 +96,6 @@ const updateUserInfo = (req, res, next) => {
 };
 
 module.exports = {
-  getUsers,
-  getUserById,
   createUser,
   login,
   getCurrentUserInfo,
