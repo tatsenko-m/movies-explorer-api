@@ -23,9 +23,9 @@ const validateCard = celebrate({
   }),
 });
 
-const validateCardId = celebrate({
+const validateMovieId = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().hex().length(24).required(),
+    _id: Joi.string().hex().length(24).required(),
   }),
 });
 
@@ -39,6 +39,6 @@ module.exports = {
   validateSignup,
   validateSignin,
   validateCard,
-  validateCardId,
+  validateMovieId,
   validateUser,
 };
