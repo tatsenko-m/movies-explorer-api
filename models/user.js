@@ -24,12 +24,12 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// eslint-disable-next-line func-names
-userSchema.methods.toSafeJSON = function () {
+function toSafeJSON() {
   const user = this.toObject();
   delete user.password;
-
   return user;
-};
+}
+
+userSchema.methods.toSafeJSON = toSafeJSON;
 
 module.exports = mongoose.model('user', userSchema);
