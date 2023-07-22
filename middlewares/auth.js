@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const config = require('../constants/config');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -14,7 +15,7 @@ const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : config.devSecretKey);
   } catch (err) {
     res.status(401);
     return next(new UnauthorizedError('Неверный или истекший токен'));

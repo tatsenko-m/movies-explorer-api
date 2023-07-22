@@ -12,8 +12,9 @@ const errorHandler = require('./middlewares/error-handler');
 const router = require('./routes/index');
 const { validateSignup, validateSignin } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const config = require('./constants/config');
 
-const { PORT = 3000, DB_URL = 'mongodb://0.0.0.0:27017/bitfilmsdb' } = process.env;
+const { PORT = 3000, DB_URL = config.dataBaseUrl } = process.env;
 
 const app = express();
 
