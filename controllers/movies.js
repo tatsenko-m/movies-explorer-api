@@ -25,7 +25,7 @@ const deleteMovieById = (req, res, next) => {
   Movie.findById(req.params._id)
     .then((movie) => {
       if (!movie) {
-        return next(new NotFoundError('Карточка не найдена'));
+        return next(new NotFoundError('Фильм не найден'));
       }
       if (String(req.user._id) !== String(movie.owner)) {
         return next(new ForbiddenError('Доступ запрещен'));
