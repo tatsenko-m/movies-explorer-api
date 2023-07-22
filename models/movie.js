@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const errorMessages = require('../constants/error-messages');
 
 const movieSchema = new mongoose.Schema({
   country: {
@@ -27,7 +28,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (field) => validator.isURL(field),
-      message: 'Некорректный формат ссылки на постер к фильму',
+      message: errorMessages.invalidImage,
     },
   },
   trailerLink: {
@@ -35,7 +36,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (field) => validator.isURL(field),
-      message: 'Некорректный формат ссылки на трейлер фильма',
+      message: errorMessages.invalidTrailerLink,
     },
   },
   thumbnail: {
@@ -43,7 +44,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: (field) => validator.isURL(field),
-      message: 'Некорректный формат ссылки на миниатюрное изображение постера к фильму',
+      message: errorMessages.invalidThumbnail,
     },
   },
   owner: {
