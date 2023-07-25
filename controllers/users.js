@@ -91,6 +91,8 @@ const updateUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError(errorMessages.validationFailed));
+      } else if (err.code === 11000) {
+        next(new ConflictError(errorMessages.nonUniqueEmail));
       } else {
         next(err);
       }
