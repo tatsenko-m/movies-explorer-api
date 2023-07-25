@@ -5,7 +5,9 @@ const ForbiddenError = require('../errors/ForbiddenError');
 const errorMessages = require('../constants/error-messages');
 
 const getMovies = (req, res, next) => {
-  Movie.find({})
+  const ownerId = req.user._id;
+
+  Movie.find({ owner: ownerId })
     .then((movies) => res.status(200).send(movies))
     .catch(next);
 };
