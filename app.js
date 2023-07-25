@@ -6,11 +6,8 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const limiter = require('./middlewares/limiter');
-const { login, createUser } = require('./controllers/users');
-const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/error-handler');
 const router = require('./routes/index');
-const { validateSignup, validateSignin } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const config = require('./constants/config');
 
@@ -27,12 +24,6 @@ app.use(requestLogger);
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
-
-app.post('/signin', validateSignin, login);
-
-app.post('/signup', validateSignup, createUser);
-
-app.use(auth);
 
 app.use(router);
 
